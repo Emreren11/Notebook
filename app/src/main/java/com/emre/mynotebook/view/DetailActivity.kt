@@ -55,27 +55,25 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
+        title = binding.titleText.text.toString()
+        mainText = binding.mainText.text.toString()
+        if (!title.equals("") || !mainText.equals("")) {
+            control = true
+        }
         if (info!!.equals("new") && control) {
             save()
-            println("save")
         } else if (info!!.equals("old")) {
-            println("update")
             update()
         }
         super.onPause()
     }
 
-    lateinit var title: String
-    lateinit var mainText: String
-    lateinit var note: Notes
+    private lateinit var title: String
+    private lateinit var mainText: String
+    private lateinit var note: Notes
 
     private fun save() {
-        title = binding.titleText.text.toString()
-        mainText = binding.mainText.text.toString()
 
-        if (!title.equals("") && !mainText.equals("")) {
-            control = true
-        }
         note = Notes(title, mainText)
         compositeDisposable.add(
             noteDao.insert(note)
@@ -86,8 +84,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun update() {
-        title = binding.titleText.text.toString()
-        mainText = binding.mainText.text.toString()
 
         note = Notes(title, mainText)
         note.id = id!!

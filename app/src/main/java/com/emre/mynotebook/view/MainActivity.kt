@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        println("create")
         // Database Tanımlamaları
         db = Room.databaseBuilder(applicationContext,NoteDatabase::class.java,"Notes").build()
         noteDao = db.noteDao()
